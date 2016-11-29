@@ -27,9 +27,9 @@ public class Ficha extends JPanel implements MouseListener{
     Ficha(){
         super();
         this.setPreferredSize(new Dimension(Ficha.TAM_MIN, Ficha.TAM_MIN));
-        this.setMinimumSize(this.getPreferredSize());
         this.addMouseListener(this);
         this.setBorder(BorderFactory.createRaisedSoftBevelBorder());
+        this.setBackground(Colors.getBackground());
         this.actual= null;
     }
 
@@ -38,7 +38,8 @@ public class Ficha extends JPanel implements MouseListener{
         this.actual= p;
     }
     @Override
-    public void paint(Graphics g) {
+    public void paint(Graphics g){
+        g.clearRect(0, 0, this.getWidth(), this.getHeight());
         super.paint(g);
         if(this.actual==null) return;
 
@@ -80,32 +81,32 @@ public class Ficha extends JPanel implements MouseListener{
 
     private Polygon getUp() {
         Polygon p= new Polygon();
-        p.addPoint(2, 2);
-        p.addPoint(this.getWidth()-2, 2);
+        p.addPoint(1, 1);
+        p.addPoint(this.getWidth()-1, 1);
         p.addPoint(this.getWidth()/2, this.getHeight()/2);
         return p;
     }
 
     private Polygon getEast() {
         Polygon p= new Polygon();
-        p.addPoint(this.getWidth()-2, 2);
-        p.addPoint(this.getWidth()-2, this.getHeight()-2);
+        p.addPoint(this.getWidth()-1, 1);
+        p.addPoint(this.getWidth()-1, this.getHeight()-1);
         p.addPoint(this.getWidth()/2, this.getHeight()/2);
         return p;
     }
 
     private Polygon getDown() {
         Polygon p= new Polygon();
-        p.addPoint(this.getWidth()-2, this.getHeight()-2);
-        p.addPoint(2, this.getHeight()-2);
+        p.addPoint(this.getWidth()-1, this.getHeight()-1);
+        p.addPoint(1, this.getHeight()-1);
         p.addPoint(this.getWidth()/2, this.getHeight()/2);
         return p;
     }
 
     private Polygon getWest(){
         Polygon p= new Polygon();
-        p.addPoint(2, this.getHeight()-2);
-        p.addPoint(2, 2);
+        p.addPoint(1, this.getHeight()-1);
+        p.addPoint(1, 1);
         p.addPoint(this.getWidth()/2, this.getHeight()/2);
         return p;
     }

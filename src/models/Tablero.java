@@ -12,8 +12,8 @@ import java.util.Random;
  * @author Gianco
  */
 public class Tablero implements Cloneable{
-    public static final int NLIMIT= 9;
-    public static int NMIN= 0;
+    public static final int NLIMIT= 8;
+    public static int NMIN= 1;
 
     private boolean logic;
     private Pieza[][] table;

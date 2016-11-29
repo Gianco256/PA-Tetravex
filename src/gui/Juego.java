@@ -6,9 +6,14 @@
 package gui;
 
 import control.Juego.ModoMovimiento;
-import java.awt.FlowLayout;
+import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -22,6 +27,12 @@ public class Juego extends JFrame{
     static final int DEFAULT_LEVEL_DIFICULT= 10;
     private static int SEPARACION= 40;
 
+    private static Dimension getPredefine() {
+        return new Dimension(
+                Ficha.TAM_MIN*Tablero.MAX_F_TAM*2+Juego.SEPARACION,
+                Ficha.TAM_MIN*Tablero.MAX_F_TAM+40);
+    }
+
     private int size, dif;
     private Tablero t, b;
 
@@ -30,6 +41,7 @@ public class Juego extends JFrame{
     private Juego(){
         super("Tetravex");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.createMenu();
         this.nuevoJuego(Tablero.MIN_F_TAM, Juego.DEFAULT_LEVEL_DIFICULT);
         this.setResizable(false);
     }
@@ -39,13 +51,17 @@ public class Juego extends JFrame{
         this.dif= dif;
         control.Juego.nuevoJuego(t, dif);
 
-        JPanel c = new JPanel(new FlowLayout());
+        JPanel c = new JPanel();
+        c.setLayout(new BoxLayout(c, BoxLayout.X_AXIS));
 
         this.t= new Tablero(control.Juego.getTablero());
         this.b= new Tablero(control.Juego.getBucket());
 
         control.Juego.setTableroGui(this.t);
         control.Juego.setBucketGui(this.b);
+
+        this.t.setAlignmentY(CENTER_ALIGNMENT);
+        this.b.setAlignmentY(CENTER_ALIGNMENT);
 
         c.add(this.t);
         c.add(new JLabel(" < "));
@@ -54,6 +70,7 @@ public class Juego extends JFrame{
         this.setContentPane(c);
 
         this.pack();
+        this.setSize(Juego.getPredefine());
         this.setVisible(true);
     }
 
@@ -90,5 +107,49 @@ public class Juego extends JFrame{
 
         if(control.Juego.complete()) this.NuevoNivel();
         return tmp;
+    }
+
+    private void createMenu() {
+        JMenuBar menubar= new JMenuBar();
+        //menu de juego
+        JMenu tmp= new JMenu("Juego");
+        //nuevoJuego
+        tmp.add(new JMenuItem("Nuevo juego")).addActionListener((ActionEvent e) -> {
+            Juego.INSCREEN.nuevoJuego();
+        });
+        //nuevo tamaño
+        tmp.add(new JMenuItem("Cambiar tamaño")).addActionListener((ActionEvent e) ->{
+            Juego.INSCREEN.selectNivel();
+        });
+        menubar.add(tmp);
+        //menu de informacion
+        tmp= new JMenu("Ayuda");
+        tmp.add(new JMenuItem("Acerca de"));
+        tmp.add(new JMenuItem("Como jugar"));
+        menubar.add(tmp);
+        
+        this.setJMenuBar(menubar);
+    }
+
+    private void nuevoJuego() {
+        this.nuevoJuego(this.size, Juego.DEFAULT_LEVEL_DIFICULT);
+    }
+
+    private void selectNivel() {
+        Object[] niveles = null;
+        try {
+            niveles = new Object[Tablero.MAX_F_TAM - Tablero.MIN_F_TAM + 1];
+        } catch (Exception e) { return; }
+
+        for (int i = Tablero.MIN_F_TAM; i <= Tablero.MAX_F_TAM; i++){
+            niveles[i- Tablero.MIN_F_TAM]= Integer.toString(i);
+        }
+
+        try {
+            String opt = JOptionPane.showInputDialog(null, "Selecciona el nuevo tamaño:",
+                    "", JOptionPane.PLAIN_MESSAGE, null, niveles, niveles[0]).toString();
+
+            this.nuevoJuego(Integer.decode(opt), Juego.DEFAULT_LEVEL_DIFICULT);
+        } catch (Exception e){}
     }
 }
