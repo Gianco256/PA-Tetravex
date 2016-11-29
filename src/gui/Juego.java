@@ -6,11 +6,7 @@
 package gui;
 
 import control.Juego.ModoMovimiento;
-import java.awt.Color;
-import java.awt.Container;
-import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.Toolkit;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;

@@ -15,7 +15,7 @@ import control.TableroGuiCallback;
  */
 public class Tablero extends JPanel implements TableroGuiCallback{
     public static Ficha selected= null;
-    static final int MIN_F_TAM= 3;
+    static final int MIN_F_TAM= 2;
     static final int MAX_F_TAM= 6;
 
     //TODO: probar el rendimiento sin esta referencia

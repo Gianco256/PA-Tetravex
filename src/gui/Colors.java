@@ -11,7 +11,7 @@ import java.awt.Color;
  *
  * @author Gianco
  */
-public abstract class Colors {
+public class Colors {
     //TODO: archivo de configuracion de colores
     static Color getColor(int i){
         switch(i){
@@ -29,7 +29,7 @@ public abstract class Colors {
         }
     }
 
-    static Color getBackground() {
-        return Color.GREEN;
+    static Color getBackground(){
+        return new Color(0.660784313F, 0.405882352F, 0.582352941F, 0.6F);
     }
 }
