@@ -141,8 +141,8 @@ public class Juego extends JFrame{
             niveles = new Object[Tablero.MAX_F_TAM - Tablero.MIN_F_TAM + 1];
         } catch (Exception e) { return; }
 
-        for (int i = Tablero.MIN_F_TAM; i <= Tablero.MAX_F_TAM; i++){
-            niveles[i- Tablero.MIN_F_TAM]= Integer.toString(i);
+        for (int i = 0; i < niveles.length; i++){
+            niveles[i]= Integer.toString(i+Tablero.MIN_F_TAM);
         }
 
         try {
@@ -150,6 +150,6 @@ public class Juego extends JFrame{
                     "", JOptionPane.PLAIN_MESSAGE, null, niveles, niveles[0]).toString();
 
             this.nuevoJuego(Integer.decode(opt), Juego.DEFAULT_LEVEL_DIFICULT);
-        } catch (Exception e){}
+        } catch ( NumberFormatException e){}
     }
 }
