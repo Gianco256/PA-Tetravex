@@ -36,6 +36,10 @@ public class Juego extends JFrame{
     private int size, dif;
     private Tablero t, b;
 
+    /**
+     *  solo utilizado para entry point
+     * @param args parametros de la linea de comandos
+     */
     public static void main(String[] args){}
 
     private Juego(){
@@ -75,10 +79,15 @@ public class Juego extends JFrame{
     }
 
     private void NuevoNivel(){
-        JOptionPane.showMessageDialog(this, "Nivel " + this.dif/10 + " completado.");
+        this.showLevelDialog();
         this.nuevoJuego(this.size, this.dif+10);
     }
 
+    /**
+     *
+     * @param f espacio al cual se movera la ficha seleccionada
+     * @return informa si se realizo o no el movimiento
+     */
     public boolean mover(Ficha f){
         if(Tablero.selected==null) return false;
 
@@ -151,5 +160,9 @@ public class Juego extends JFrame{
 
             this.nuevoJuego(Integer.decode(opt), Juego.DEFAULT_LEVEL_DIFICULT);
         } catch ( NumberFormatException e){}
+    }
+
+    private void showLevelDialog(){
+        JOptionPane.showMessageDialog(this, "Nivel " + this.dif/10 + " completado.", "Felicidades", JOptionPane.PLAIN_MESSAGE);
     }
 }
